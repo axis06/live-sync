@@ -7,8 +7,9 @@
   <title>LiveSync</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
   <script src="https://cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
-  <script src="main.js"></script></head>
+  <script src="main.js"></script>
   <link href="style.css" rel="stylesheet">
+  </head>
 <body>
 
 
@@ -21,7 +22,10 @@
 
   <div id="headset_side" style="display: none">
     <div id="video-container">
-      <video id="their-video" inline></video>
+      <video id="video" autoplay playsinline></video>
+      <div id="connect-info" class="window">
+        CONNECTING
+      </div>
     </div>
   </div>
 
