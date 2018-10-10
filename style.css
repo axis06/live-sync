@@ -33,15 +33,23 @@ body{
   color: #93a0a1
 }
 
-#connect-info{
+.connect-info{
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
 }
+
 #data-info{
   position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
+}
+
+#video{
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
 }

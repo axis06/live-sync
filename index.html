@@ -5,44 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>LiveSync</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
   <script src="main.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css" rel="stylesheet">
   <link href="style.css" rel="stylesheet">
-  </head>
+</head>
 <body>
-
-
+   <video id="local" autoplay playsinline style="display: none"></video>
 
   <div id="menu">
     <div id="Headset" class="btn">Headset Side</div>
     <div id="Computational" class="btn">Computational Side</div>
   </div>
 
-
   <div id="headset_side" style="display: none">
     <div id="video-container">
-      <video id="video" autoplay playsinline></video>
-      <div id="connect-info" class="window">
+      <video id="video" autoplay playsinline muted="true"></video>
+      <div id="connect-info-get" class="connect-info window">
         CONNECTING
       </div>
     </div>
   </div>
 
   <div id="clomputatuional_side" style="display: none">
-    <video id="my-video" muted="true" style="display:none"></video>
-
-    <div id="connect-info" class="window">
+    <div id="connect-info-send" class="connect-info window">
       CONNECTING
     </div>
 
     <div id="data-info" class="window">
       DATA
     </div>
-
-
   </div>
-
 
 </body>
 </html>
