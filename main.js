@@ -97,7 +97,7 @@ $(function(){
   }
 
 
-  function view_connecting(){
+  function view_data(){
     if(connecting_flag){
     $('.data-info').html(
       "CONNECTING<br>" +
@@ -114,7 +114,8 @@ $(function(){
     y = data.y;
     z = data.z;
 
-    view_connecting()
+    view_connecting();
+    view_data();
   }
 
 
