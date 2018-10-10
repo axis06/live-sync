@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>LiveSync</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+  <script src="https://cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
+  <script src="main.js"></script></head>
+  <link href="style.css" rel="stylesheet">
+<body>
+
+
+
+  <div id="menu">
+    <div id="Headset" class="btn">Headset Side</div>
+    <div id="Computational" class="btn">Computational Side</div>
+  </div>
+
+
+  <div id="headset_side" style="display: none">
+    <div id="video-container">
+      <video id="their-video" inline></video>
+    </div>
+  </div>
+
+  <div id="clomputatuional_side" style="display: none">
+    <video id="my-video" muted="true" style="display:none"></video>
+
+    <div id="connect-info" class="window">
+      CONNECTING
+    </div>
+
+    <div id="data-info" class="window">
+      DATA
+    </div>
+
+
+  </div>
+
+
+</body>
+</html>
