@@ -114,10 +114,22 @@ $(function(){
     y = data.y;
     z = data.z;
 
+
+    var json_parse = JSON.stringify({"x": evt.accelerationIncludingGravity.x,
+    "y": evt.accelerationIncludingGravity.y,
+    "z": evt.accelerationIncludingGravity.z})
+
+    socket.sed(json_parse);
+
     view_connecting();
     view_data();
   }
 
+  var sock = new WebSocket('ws://127.0.0.1:3100');
+
+  sock.addEventListener('open',function(e){
+      console.log('Socket Connecting');
+  });
 
   window.addEventListener("devicemotion", function(evt){
 
@@ -125,12 +137,9 @@ $(function(){
       "time": Date.now(),
       "x": evt.accelerationIncludingGravity.x,
       "y": evt.accelerationIncludingGravity.y,
-      "z": evt.accelerationIncludingGravity.z}
-    );
-
+      "z": evt.accelerationIncludingGravity.z});
+    
   }, true);
-
-
 
 
 }); 

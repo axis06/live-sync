@@ -1,0 +1,25 @@
+{
+  "name": "live-sync",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "express": "^4.16.4",
+    "omgosc": "^1.0.0",
+    "ws": "^6.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axis06/live-sync.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/axis06/live-sync/issues"
+  },
+  "homepage": "https://github.com/axis06/live-sync#readme"
+}
