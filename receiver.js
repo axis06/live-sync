@@ -7,7 +7,7 @@ app.use(express.static('./'));
 
 var hosturl = "0.0.0.0";
 var wsport = 3100;
-var oscport = 8000;
+var oscport = 6448;
 
 // WebSocket Serverを立ち上げる
 var WebSocketServer = require('ws').Server;
@@ -19,10 +19,10 @@ var sender = new oscsender(hosturl, oscport);
 // WebSocketのイベントハンドラ
 wss.on('connection', function (ws) {
     ws.on('message', function (message) {
-        console.log(message);
         var mes = JSON.parse(message);
         if(mes.osc){
-           sender.send(mes.path,mes.type,[mes.data]);
+            console.log(mes.data)
+            sender.send(mes.path,mes.type,mes.data);
         }
     });
 });

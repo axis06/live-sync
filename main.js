@@ -115,11 +115,10 @@ $(function(){
     z = data.z;
 
 
-    var json_parse = JSON.stringify({"x": evt.accelerationIncludingGravity.x,
-    "y": evt.accelerationIncludingGravity.y,
-    "z": evt.accelerationIncludingGravity.z})
+    var json_parse = JSON.stringify({"osc":"WsOscSend","path":"/wek/inputs","type":"fff","data":[data.x,data.y,data.z]});
 
-    socket.sed(json_parse);
+
+    sock.send(json_parse);
 
     view_connecting();
     view_data();
