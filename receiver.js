@@ -21,7 +21,6 @@ wss.on('connection', function (ws) {
     ws.on('message', function (message) {
         var mes = JSON.parse(message);
         if(mes.osc){
-            console.log(mes.data)
             sender.send(mes.path,mes.type,mes.data);
         }
     });

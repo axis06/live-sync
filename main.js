@@ -7,7 +7,6 @@ $(function(){
   var time = 0;
   var x,y,z = 0;
 
-
   $("#Headset").click(function() {
     $("#menu").hide();
     $("#headset_side").show();
@@ -42,6 +41,48 @@ $(function(){
     });
   });
 
+  const audioSelect = $('#audioSource');
+  const videoSelect = $('#videoSource');
+  const selectors = [audioSelect, videoSelect];
+
+  navigator.mediaDevices.enumerateDevices()
+    .then(deviceInfos => {
+      const values = selectors.map(select => select.val() || '');
+      selectors.forEach(select => {
+        const children = select.children(':first');
+        while (children.length) {
+          select.remove(children);
+        }
+      });
+
+      for (let i = 0; i !== deviceInfos.length; ++i) {
+        const deviceInfo = deviceInfos[i];
+        const option = $('<option>').val(deviceInfo.deviceId);
+
+        if (deviceInfo.kind === 'audioinput') {
+          option.text(deviceInfo.label ||
+            'Microphone ' + (audioSelect.children().length + 1));
+          audioSelect.append(option);
+        } else if (deviceInfo.kind === 'videoinput') {
+          option.text(deviceInfo.label ||
+            'Camera ' + (videoSelect.children().length + 1));
+          videoSelect.append(option);
+        }
+      }
+
+      selectors.forEach((select, selectorIndex) => {
+        if (Array.prototype.slice.call(select.children()).some(n => {
+          return n.value === values[selectorIndex];
+        })) {
+          select.val(values[selectorIndex]);
+        }
+      });
+
+      videoSelect.on('change', setup);
+      audioSelect.on('change', setup);
+    });
+    setup();
+
   const peer = new Peer({
     key:   "64584427-b066-4ec8-89d4-02db55ae61a3",
     debug: 3,
@@ -57,12 +98,21 @@ $(function(){
     c.on('data', data => console.log(data));
   });
 
-  navigator.mediaDevices.getUserMedia({audio: true, video: true}).then(stream => {
-    $('#local').get(0).srcObject = stream;
-    localStream = stream;
-  }).catch(err => {
-    console.error(err);
-  });
+  function setup() {
+    const audioSource = $('#audioSource').val();
+    const videoSource = $('#videoSource').val();
+    const constraints = {
+      audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
+      video: {deviceId: videoSource ? {exact: videoSource} : undefined},
+    };
+
+    navigator.mediaDevices.getUserMedia(constraints).then(stream => {
+      $('#local').get(0).srcObject = stream;
+      localStream = stream;
+    }).catch(err => {
+      console.error(err);
+    });
+  }
 
   peer.on('call', call => {
     call.answer(localStream);
@@ -86,7 +136,10 @@ $(function(){
 
   function view_connecting(){
     var status = "no connect"
-    if(connecting_flag == true){status = "connected"}
+    if(connecting_flag == true){status = "connected";
+    $("#connect-info-get").hide()
+  
+    }
 
     $('.connect-info').html(
       "CONNECTING<br>" +
