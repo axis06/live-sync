@@ -8,6 +8,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
   <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+
   <script src="main.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css" rel="stylesheet">
   
@@ -30,14 +31,9 @@
   </div>
 
   <div id="headset_side" style="display: none">
-    <div id="video-container">
 
-      <a-scene>
-        <a-assets>
-          <video id="video"></video>
-        </video></a-assets>
-        <a-videosphere src="#video"></a-videosphere>
-      </a-scene>
+      <video id="video"></video>
+
       <div id="connect-info-get" class="connect-info window">
         CONNECTING
       </div>

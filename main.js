@@ -1,3 +1,5 @@
+
+
 $(function(){
   let localStream;
   var connecting_flag = false;
@@ -16,6 +18,13 @@ $(function(){
     $("#menu").hide();
     $("#clomputatuional_side").show();
     self_pos = "computational"
+
+    var sock = new WebSocket('ws://127.0.0.1:3100');
+
+    sock.addEventListener('open',function(e){
+        console.log('Socket Connecting');
+    });
+
 
     peer.listAllPeers(peers => {
       $.each( peers, function( key, value ) {
@@ -95,7 +104,7 @@ $(function(){
   peer.on('connection', c => {
     self_connect = c;
     c.on('open')
-    c.on('data', data => console.log(data));
+    c.on('data', data => setup());
   });
 
   function setup() {
@@ -177,14 +186,9 @@ $(function(){
     view_data();
   }
 
-  var sock = new WebSocket('ws://127.0.0.1:3100');
-
-  sock.addEventListener('open',function(e){
-      console.log('Socket Connecting');
-  });
 
   window.addEventListener("devicemotion", function(evt){
-
+    console.log(evt);
     self_connect.send({
       "time": Date.now(),
       "x": evt.accelerationIncludingGravity.x,
@@ -195,3 +199,47 @@ $(function(){
 
 
 }); 
+
+
+AFRAME.registerComponent('hide-once-playing', {
+  schema: {type: 'selector'},
+  init: function () {
+    this.onPlaying = this.onPlaying.bind(this);
+    this.onPause = this.onPause.bind(this);
+  },
+  play: function () {
+    if (this.data) {
+      this.data.addEventListener('playing', this.onPlaying);
+      this.data.addEventListener('pause', this.onPause);
+    }
+  },
+  pause: function () {
+    if (this.data) {
+      this.data.removeEventListener('playing', this.onPlaying);
+      this.data.removeEventListener('pause', this.onPause);
+    }
+  },
+  onPlaying: function (evt) {
+    this.el.setAttribute('visible', false);
+  },
+  onPause: function (evt) {
+    this.el.setAttribute('visible', true);
+  }
+});
+
+AFRAME.registerComponent('play-on-window-click', {
+  init: function () {
+    this.onClick = this.onClick.bind(this);
+  },
+  play: function () {
+    window.addEventListener('click', this.onClick);
+  },
+  pause: function () {
+    window.removeEventListener('click', this.onClick);
+  },
+  onClick: function (evt) {
+    var video = this.el.components.material.material.map.image;
+    if (!video) { return; }
+    video.play();
+  }
+});
