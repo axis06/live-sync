@@ -7,8 +7,10 @@
   <title>LiveSync</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
+  <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
   <script src="main.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css" rel="stylesheet">
+  
   <link href="style.css" rel="stylesheet"
 </head>
 <body>
@@ -29,7 +31,13 @@
 
   <div id="headset_side" style="display: none">
     <div id="video-container">
-      <video id="video" autoplay playsinline></video>
+
+      <a-scene>
+        <a-assets>
+          <video id="video"></video>
+        </video></a-assets>
+        <a-videosphere src="#video"></a-videosphere>
+      </a-scene>
       <div id="connect-info-get" class="connect-info window">
         CONNECTING
       </div>
