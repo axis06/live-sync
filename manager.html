@@ -9,27 +9,26 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
   <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
-
-  <script src="index.js"></script>
+  <script src="manager.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css" rel="stylesheet">
   <link href="style.css" rel="stylesheet">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <script src="https://unpkg.com/aframe-html-shader@0.2.0/dist/aframe-html-shader.min.js"></script>
 
 </head>
 <body>
+  <video id="local" autoplay playsinline style="display: none" muted></video>
+  <video id="their-video" style="display: none"></video>
+
   <div class="select">
     <select id="audioSource"></select>
+    <select id="videoSource"></select>
   </div>
-  <video id="local" autoplay playsinline style="display: none" muted></video>
 
-  <a-scene>
-      <a-assets>
-        <video id="their-video" autoplay src="https://ucarecdn.com/fadab25d-0b3a-45f7-8ef5-85318e92a261/"></video>
-      </a-assets>
-    
-      <a-video src="#their-video" width="32" height="18" position="0 0 -20"></a-video>
-      <a-camera camera-devise></a-camera>
-    </a-scene>
+
+  <div id="console-window">
+    text
+  </div>
+
+
 </body>
 </html>
