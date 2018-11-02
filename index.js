@@ -134,24 +134,40 @@ $(function(){
   }
 
 
+ $(".a-enter-vr-button").click(function() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen(); 
+    }
+  }
+});
+
+  var count = 0;
+
   AFRAME.registerComponent('camera-devise', {
     init: function () {
       this.currentPosition= new THREE.Quaternion();
     },
     tick: function () {
-      var currentPosition = this.currentPosition;
-      this.el.object3D.updateMatrixWorld();
-      currentPosition = this.el.object3D.quaternion;
-      
-      
-      self_connect.send({
-        "time": Date.now(),
-        "x": currentPosition.x,
-        "y": currentPosition.y,
-        "z": currentPosition.z,
-        "w": currentPosition.w
-      });
-
+      count += 1;
+      if(count >= 4){
+        count = 0;
+        var currentPosition = this.currentPosition;
+        this.el.object3D.updateMatrixWorld();
+        currentPosition = this.el.object3D.quaternion;
+        
+        if(self_connect != null){
+          self_connect.send({
+            "time": Date.now(),
+            "x": currentPosition.x,
+            "y": currentPosition.y,
+            "z": currentPosition.z,
+            "w": currentPosition.w
+          });
+        }
+      }
 
     },
   
