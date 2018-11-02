@@ -81,7 +81,7 @@ $(function(){
     const audioSource = $('#audioSource').val();
     const constraints = {
       audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
-      video: true,
+      video: false,
     };
 
     navigator.mediaDevices.getUserMedia(constraints).then(stream => {
@@ -152,7 +152,7 @@ $(function(){
     },
     tick: function () {
       count += 1;
-      if(count >= 4){
+      if(count >= 10){
         count = 0;
         var currentPosition = this.currentPosition;
         this.el.object3D.updateMatrixWorld();
