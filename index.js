@@ -10,7 +10,7 @@ $(function(){
     key:   "64584427-b066-4ec8-89d4-02db55ae61a3",
     debug: 3,
   });
-
+  source_select();
 
   peer.on('call', call => {
     call.answer(localStream);
@@ -23,7 +23,6 @@ $(function(){
 
   peer.on('open', () => { 
     console.log(peer.id)    
-    source_select();
     auto_connect();
   });
 
@@ -72,6 +71,7 @@ $(function(){
       });
 
       audioSelect.on('change', source_select);
+      
     });
 
 
