@@ -28,5 +28,5 @@ wss.on('connection', function (ws) {
 
 
 app.listen(3000, ()=> {
-    console.log('Express Server 01');
+    console.log('Please Open http://localhost:3000/manager.html');
 });
