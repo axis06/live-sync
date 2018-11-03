@@ -79,7 +79,7 @@ $(function(){
     const audioSource = $('#audioSource').val();
     const constraints = {
       audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
-      video: false,
+      video: true,
     };
 
     
@@ -105,7 +105,6 @@ $(function(){
     if (existingCall) {
       existingCall.close();
     }
-
     // Wait for stream on the call, then set peer video display
     call.on('stream', stream => {
       const el = $('#their-video').get(0);
@@ -123,14 +122,12 @@ $(function(){
       $.each( peers, function( key, value ) {
         if(peer.id != value){
 
-          console.log(localStream)
-
-          const call = peer.call(value,localStream);
+          console.log("c:"+value)
+          const call = peer.call(value, localStream);
           self_connect = peer.connect(value)
           self_connect.on('data', data => get_command(data));
-          
-          connection_data(call);
-          
+          connection_data(call)
+
           call.on('close', () => {
             console.log('connection closed');
           });

@@ -19,17 +19,7 @@ $(function(){
   });
 
   peer.on('call', call => {
-
-    console.log("fff")
     call.answer(localStream);
-    call.on('stream', stream => {
-      const el = $('#their-video').get(0);
-      el.srcObject = stream;
-      el.play();
-      console.log("nnn")
-    });
-
-
     connection_data(call);
   });
 
@@ -38,8 +28,8 @@ $(function(){
   });
 
   peer.on('open', () => { 
+    console.log(peer.id)   
     source_select();
-    //auto_connect()
   });
 
   peer.on('connection', c => {
@@ -123,9 +113,14 @@ $(function(){
     }
 
     existingCall = call;
-  }
 
-  
+    call.on('stream', stream => {
+      const el = $('#their-video').get(0);
+      el.srcObject = stream;
+      el.play()
+    });
+
+  }
 
   // function auto_connect(){
   //   peer.listAllPeers(peers => {
@@ -137,10 +132,6 @@ $(function(){
   //         call.on('close', () => {
   //           console.log('connection closed');
   //         });
-
-
-
-          
   //       }
   //     });
   //   });
