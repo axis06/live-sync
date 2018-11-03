@@ -41,6 +41,7 @@ $(function(){
 
 
 
+  source_select()
   const audioSelect = $('#audioSource');
   const videoSelect = $('#videoSource');
   const selectors = [audioSelect,videoSelect];
@@ -92,7 +93,7 @@ $(function(){
       video: {deviceId: videoSource ? {exact: videoSource} : true},
     }
 
-    navigator.mediaDevices.getUserMedia(constraints).then(stream => {
+    navigator.mediaDevices.getUserMedia({autdio: true,video: true}).then(stream => {
       $('#local').get(0).srcObject = stream;
       localStream = stream;
 

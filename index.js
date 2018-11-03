@@ -12,7 +12,6 @@ $(function(){
   });
 
   peer.on('call', call => {
-    source_select()
     call.answer(localStream);
     connection_data(call);
   });
@@ -23,6 +22,7 @@ $(function(){
 
   peer.on('open', () => { 
     console.log(peer.id)
+    source_select()
   });
 
   peer.on('connection', c => {
@@ -30,7 +30,6 @@ $(function(){
     c.on('data', data => {console.log(data)})
     );
   });
-
 
   const audioSelect = $('#audioSource');
   const videoSelect = $('#videoSource');
@@ -80,7 +79,7 @@ $(function(){
     const videoSource = $('#videoSource').val();
     const constraints = {
       audio: {deviceId: audioSource ? {exact: audioSource} : true},
-      video: false,
+      video: true,
     }
 
     
