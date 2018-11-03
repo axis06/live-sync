@@ -8,7 +8,7 @@ $(function(){
 
   const peer = new Peer({
     key:   "64584427-b066-4ec8-89d4-02db55ae61a3",
-    debug: 3,
+    debug: 0,
   });
 
 
@@ -20,15 +20,16 @@ $(function(){
 
   peer.on('call', call => {
 
-
+    console.log("fff")
     call.answer(localStream);
     call.on('stream', stream => {
       const el = $('#their-video').get(0);
       el.srcObject = stream;
       el.play();
+      console.log("nnn")
     });
 
-    
+
     connection_data(call);
   });
 

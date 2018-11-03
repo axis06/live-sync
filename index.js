@@ -8,9 +8,8 @@ $(function(){
 
   const peer = new Peer({
     key:   "64584427-b066-4ec8-89d4-02db55ae61a3",
-    debug: 3,
+    debug: 0,
   });
-  source_select();
 
   peer.on('call', call => {
     call.answer(localStream);
@@ -23,7 +22,7 @@ $(function(){
 
   peer.on('open', () => { 
     console.log(peer.id)    
-    auto_connect();
+    source_select();
   });
 
   peer.on('connection', c => {
@@ -71,7 +70,6 @@ $(function(){
       });
 
       audioSelect.on('change', source_select);
-      
     });
 
 
@@ -81,8 +79,10 @@ $(function(){
     const audioSource = $('#audioSource').val();
     const constraints = {
       audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
-      video: false,
+      video: true,
     };
+
+    
 
     navigator.mediaDevices.getUserMedia(constraints).then(stream => {
       $('#local').get(0).srcObject = stream;
@@ -91,6 +91,9 @@ $(function(){
         existingCall.replaceStream(stream);
         return;
       }
+
+      auto_connect();
+
     }).catch(err => {
       $('#step1-error').show();
       console.error(err);
@@ -119,10 +122,13 @@ $(function(){
     peer.listAllPeers(peers => {
       $.each( peers, function( key, value ) {
         if(peer.id != value){
+
+          console.log(localStream)
+
           const call = peer.call(value,localStream);
           self_connect = peer.connect(value)
           self_connect.on('data', data => get_command(data));
-
+          
           connection_data(call);
           
           call.on('close', () => {
