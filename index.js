@@ -8,9 +8,8 @@ $(function(){
 
   const peer = new Peer({
     key:   "64584427-b066-4ec8-89d4-02db55ae61a3",
-    debug: 3,
+    debug: 0,
   });
-  source_select();
 
   peer.on('call', call => {
     call.answer(localStream);
@@ -22,8 +21,8 @@ $(function(){
   });
 
   peer.on('open', () => { 
-    console.log(peer.id)    
-    auto_connect();
+    console.log(peer.id)
+    source_select()
   });
 
   peer.on('connection', c => {
@@ -31,7 +30,6 @@ $(function(){
     c.on('data', data => {console.log(data)})
     );
   });
-
 
   const audioSelect = $('#audioSource');
   const videoSelect = $('#videoSource');
@@ -71,7 +69,6 @@ $(function(){
       });
 
       audioSelect.on('change', source_select);
-      
     });
 
 
@@ -79,18 +76,25 @@ $(function(){
   function source_select() {
     // Get audio/video stream
     const audioSource = $('#audioSource').val();
+    const videoSource = $('#videoSource').val();
     const constraints = {
-      audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
-      video: false,
-    };
+      audio: undefined,
+      video: undefined,
+    }
+
+    console.log(audioSource);
 
     navigator.mediaDevices.getUserMedia(constraints).then(stream => {
       $('#local').get(0).srcObject = stream;
       localStream = stream;
+
       if (existingCall) {
         existingCall.replaceStream(stream);
         return;
       }
+
+      auto_connect();
+
     }).catch(err => {
       $('#step1-error').show();
       console.error(err);
@@ -98,12 +102,9 @@ $(function(){
   }
 
   function connection_data(call){
-    // Wait for stream on the call, then set peer video display
     if (existingCall) {
       existingCall.close();
     }
-
-    // Wait for stream on the call, then set peer video display
     call.on('stream', stream => {
       const el = $('#their-video').get(0);
       el.srcObject = stream;
@@ -119,12 +120,13 @@ $(function(){
     peer.listAllPeers(peers => {
       $.each( peers, function( key, value ) {
         if(peer.id != value){
-          const call = peer.call(value,localStream);
+
+          console.log("c:"+value)
+          const call = peer.call(value, localStream);
           self_connect = peer.connect(value)
           self_connect.on('data', data => get_command(data));
+          connection_data(call)
 
-          connection_data(call);
-          
           call.on('close', () => {
             console.log('connection closed');
           });

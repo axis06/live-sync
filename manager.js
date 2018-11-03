@@ -8,7 +8,7 @@ $(function(){
 
   const peer = new Peer({
     key:   "64584427-b066-4ec8-89d4-02db55ae61a3",
-    debug: 3,
+    debug: 0,
   });
 
 
@@ -19,26 +19,18 @@ $(function(){
   });
 
   peer.on('call', call => {
-
-
     call.answer(localStream);
-    call.on('stream', stream => {
-      const el = $('#their-video').get(0);
-      el.srcObject = stream;
-      el.play();
-    });
-
-    
     connection_data(call);
   });
+
 
   peer.on('error', err => {
     console.error(err.message);
   });
 
   peer.on('open', () => { 
+    console.log(peer.id)   
     source_select();
-    //auto_connect()
   });
 
   peer.on('connection', c => {
@@ -49,6 +41,7 @@ $(function(){
 
 
 
+  source_select()
   const audioSelect = $('#audioSource');
   const videoSelect = $('#videoSource');
   const selectors = [audioSelect,videoSelect];
@@ -100,7 +93,7 @@ $(function(){
       video: {deviceId: videoSource ? {exact: videoSource} : true},
     }
 
-    navigator.mediaDevices.getUserMedia(constraints).then(stream => {
+    navigator.mediaDevices.getUserMedia({autdio: true,video: true}).then(stream => {
       $('#local').get(0).srcObject = stream;
       localStream = stream;
 
@@ -116,34 +109,18 @@ $(function(){
   }
 
   function connection_data(call){
-
     if (existingCall) {
       existingCall.close();
     }
+    call.on('stream', stream => {
+      const el = $('#their-video').get(0);
+      el.srcObject = stream;
+      el.play();
+    });
 
     existingCall = call;
+
   }
-
-  
-
-  // function auto_connect(){
-  //   peer.listAllPeers(peers => {
-  //     $.each( peers, function( key, value ) {
-  //       if(peer.id != value){
-  //         const call = peer.call(value,localStream);
-  //         connection_data(call);
-
-  //         call.on('close', () => {
-  //           console.log('connection closed');
-  //         });
-
-
-
-          
-  //       }
-  //     });
-  //   });
-  // }
 
   function render_console(data){
     time = Date.now() - data.time;

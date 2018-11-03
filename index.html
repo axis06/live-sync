@@ -19,19 +19,20 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
-  <div class="select">
-    <select id="audioSource"></select>
-  </div>
+    <div class="select">
+      <select id="audioSource"></select>
+      <select id="videoSource"></select>
+    </div>
   <video id="local" autoplay playsinline style="display: none" muted></video>
 
   <a-scene>
-      <a-assets>
-        <video id="their-video" autoplay src=""></video>
-      </a-assets>
-    
-      <a-video src="#their-video" width="32" height="18" position="0 0 -20"></a-video>
-      <a-camera camera-devise></a-camera>
-    </a-scene>
+    <a-assets>
+      <video id="their-video" autoplay src=""></video>
+    </a-assets>
+  
+    <a-video src="#their-video" width="32" height="18" position="0 0 -20"></a-video>
+    <a-camera camera-devise></a-camera>
+  </a-scene>
 
 
 </body>
