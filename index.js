@@ -77,16 +77,18 @@ $(function(){
   function source_select() {
     // Get audio/video stream
     const audioSource = $('#audioSource').val();
+    const videoSource = $('#videoSource').val();
     const constraints = {
-      audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
-      video: true,
-    };
+      audio: {deviceId: audioSource ? {exact: audioSource} : true},
+      video: {deviceId: videoSource ? {exact: videoSource} : true},
+    }
 
     
 
     navigator.mediaDevices.getUserMedia(constraints).then(stream => {
       $('#local').get(0).srcObject = stream;
       localStream = stream;
+
       if (existingCall) {
         existingCall.replaceStream(stream);
         return;
@@ -101,11 +103,9 @@ $(function(){
   }
 
   function connection_data(call){
-    // Wait for stream on the call, then set peer video display
     if (existingCall) {
       existingCall.close();
     }
-    // Wait for stream on the call, then set peer video display
     call.on('stream', stream => {
       const el = $('#their-video').get(0);
       el.srcObject = stream;

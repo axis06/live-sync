@@ -23,6 +23,7 @@ $(function(){
     connection_data(call);
   });
 
+
   peer.on('error', err => {
     console.error(err.message);
   });
@@ -107,35 +108,18 @@ $(function(){
   }
 
   function connection_data(call){
-
     if (existingCall) {
       existingCall.close();
     }
-
-    existingCall = call;
-
     call.on('stream', stream => {
       const el = $('#their-video').get(0);
       el.srcObject = stream;
-      el.play()
+      el.play();
     });
 
+    existingCall = call;
+
   }
-
-  // function auto_connect(){
-  //   peer.listAllPeers(peers => {
-  //     $.each( peers, function( key, value ) {
-  //       if(peer.id != value){
-  //         const call = peer.call(value,localStream);
-  //         connection_data(call);
-
-  //         call.on('close', () => {
-  //           console.log('connection closed');
-  //         });
-  //       }
-  //     });
-  //   });
-  // }
 
   function render_console(data){
     time = Date.now() - data.time;
