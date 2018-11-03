@@ -12,6 +12,7 @@ $(function(){
   });
 
   peer.on('call', call => {
+    source_select()
     call.answer(localStream);
     connection_data(call);
   });
@@ -21,8 +22,7 @@ $(function(){
   });
 
   peer.on('open', () => { 
-    console.log(peer.id)    
-    source_select();
+    console.log(peer.id)
   });
 
   peer.on('connection', c => {
