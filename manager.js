@@ -19,7 +19,11 @@ $(function(){
   });
 
   peer.on('call', call => {
+
+    console.log("hello")
+
     call.answer(localStream);
+
     connection_data(call);
   });
 
@@ -29,7 +33,7 @@ $(function(){
 
   peer.on('open', () => { 
     source_select();
-    auto_connect()
+    //auto_connect()
   });
 
   peer.on('connection', c => {
@@ -112,44 +116,42 @@ $(function(){
       existingCall.close();
     }
 
-    // Wait for stream on the call, then set peer video display
-    call.on('stream', stream => {
-      const el = $('#their-video').get(0);
-      el.srcObject = stream;
-      el.play();
-    });
-
     existingCall = call;
   }
 
-  function auto_connect(){
-    peer.listAllPeers(peers => {
-      $.each( peers, function( key, value ) {
-        if(peer.id != value){
-          const call = peer.call(value,localStream);
-          connection_data(call);
+  
 
-          call.on('close', () => {
-            console.log('connection closed');
-          });
-        }
-      });
-    });
-  }
+  // function auto_connect(){
+  //   peer.listAllPeers(peers => {
+  //     $.each( peers, function( key, value ) {
+  //       if(peer.id != value){
+  //         const call = peer.call(value,localStream);
+  //         connection_data(call);
+
+  //         call.on('close', () => {
+  //           console.log('connection closed');
+  //         });
+
+
+
+          
+  //       }
+  //     });
+  //   });
+  // }
 
   function render_console(data){
     time = Date.now() - data.time;
-    x = data.x;
-    y = data.y;
-    z = data.z;
-    w = data.z;
+    x = data.x.toFixed(6);
+    y = data.y.toFixed(6);
+    z = data.z.toFixed(6);
+    w = data.w.toFixed(6);
 
-    var json_parse = JSON.stringify({"osc":"WsOscSend","path":"/wek/inputs","type":"fff","data":[data.x,data.y,data.z]});
+    var json_parse = JSON.stringify({"osc":"WsOscSend","path":"/wek/inputs","type":"ffff","data":[x,y,z,w]});
     sock.send(json_parse);
 
 
-    $("#console-window").append("[Log]"+time+","+x+","+y+","+z+","+w+"<br>")
-
+    $("#console-window").html("[Log]"+time+","+x+","+y+","+z+","+w+"<br>")
   }
 
 
