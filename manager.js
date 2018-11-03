@@ -20,10 +20,15 @@ $(function(){
 
   peer.on('call', call => {
 
-    console.log("hello")
 
     call.answer(localStream);
+    call.on('stream', stream => {
+      const el = $('#their-video').get(0);
+      el.srcObject = stream;
+      el.play();
+    });
 
+    
     connection_data(call);
   });
 
