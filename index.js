@@ -80,7 +80,7 @@ $(function(){
     const videoSource = $('#videoSource').val();
     const constraints = {
       audio: {deviceId: audioSource ? {exact: audioSource} : true},
-      video: {deviceId: videoSource ? {exact: videoSource} : true},
+      video: false,
     }
 
     
