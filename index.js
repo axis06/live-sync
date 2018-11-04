@@ -25,6 +25,7 @@ $(function(){
 
   peer.on('connection', c => {
     self_connect = c;
+
     c.on('open', () => 
     c.on('data', data => {console.log(data)})
     );
@@ -78,7 +79,7 @@ $(function(){
     const videoSource = $('#videoSource').val();
     const constraints = {
       audio: true,
-      video: undefined,
+      video: true,
     }
 
     console.log(audioSource);
@@ -92,7 +93,7 @@ $(function(){
         return;
       }
 
-      auto_connect();
+      //auto_connect();
 
     }).catch(err => {
       $('#step1-error').show();
