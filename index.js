@@ -78,11 +78,11 @@ $(function(){
     const audioSource = $('#audioSource').val();
     const videoSource = $('#videoSource').val();
     const constraints = {
-      audio: {deviceId: audioSource ? {exact: audioSource} : true},
+      audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
       video: undefined,
     }
 
-    
+    console.log(audioSource);
 
     navigator.mediaDevices.getUserMedia(constraints).then(stream => {
       $('#local').get(0).srcObject = stream;
