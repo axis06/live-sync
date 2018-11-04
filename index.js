@@ -79,7 +79,7 @@ $(function(){
     const videoSource = $('#videoSource').val();
     const constraints = {
       audio: true,
-      video: undefined,
+      video: true,
     }
 
     console.log(audioSource);
