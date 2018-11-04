@@ -102,6 +102,8 @@ $(function(){
         return;
       }
 
+      auto_connect();
+
     }).catch(err => {
       $('#step1-error').show();
       console.error(err);
@@ -136,6 +138,24 @@ $(function(){
     $("#console-window").html("[Log]"+time+","+x+","+y+","+z+","+w+"<br>")
   }
 
+  function auto_connect(){
+    peer.listAllPeers(peers => {
+      $.each( peers, function( key, value ) {
+        if(peer.id != value){
 
+          console.log("c:"+value)
+          const call = peer.call(value, localStream);
+          self_connect = peer.connect(value)
+          self_connect.on('data', data => render_console(data));
+          connection_data(call)
+
+          call.on('close', () => {
+            console.log('connection closed');
+          });
+        }
+      });
+    });
+  }
 
 });
+
