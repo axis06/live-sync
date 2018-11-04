@@ -79,7 +79,7 @@ $(function(){
     const videoSource = $('#videoSource').val();
     const constraints = {
       audio: true,
-      video: true,
+      video: undefined,
     }
 
     console.log(audioSource);
@@ -116,24 +116,24 @@ $(function(){
   }
 
 
-  function auto_connect(){
-    peer.listAllPeers(peers => {
-      $.each( peers, function( key, value ) {
-        if(peer.id != value){
+  // function auto_connect(){
+  //   peer.listAllPeers(peers => {
+  //     $.each( peers, function( key, value ) {
+  //       if(peer.id != value){
 
-          console.log("c:"+value)
-          const call = peer.call(value, localStream);
-          self_connect = peer.connect(value)
-          self_connect.on('data', data => get_command(data));
-          connection_data(call)
+  //         console.log("c:"+value)
+  //         const call = peer.call(value, localStream);
+  //         self_connect = peer.connect(value)
+  //         self_connect.on('data', data => get_command(data));
+  //         connection_data(call)
 
-          call.on('close', () => {
-            console.log('connection closed');
-          });
-        }
-      });
-    });
-  }
+  //         call.on('close', () => {
+  //           console.log('connection closed');
+  //         });
+  //       }
+  //     });
+  //   });
+  // }
 
 
  $(".a-enter-vr-button").click(function() {
