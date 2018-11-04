@@ -24,10 +24,14 @@ $(function(){
   });
 
   peer.on('connection', c => {
-    c.on('open', () => 
-    c.on('data', data => {console.log(data)})
-    );
+    c.on('open', () => openEv(c));
   });
+
+  function openEv(c){
+    self_connect = c
+   
+    c.on('data', data => {console.log(data)})
+  }
 
   const audioSelect = $('#audioSource');
   const videoSelect = $('#videoSource');
