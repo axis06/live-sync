@@ -24,8 +24,6 @@ $(function(){
   });
 
   peer.on('connection', c => {
-    self_connect = c;
-
     c.on('open', () => 
     c.on('data', data => {console.log(data)})
     );
@@ -159,7 +157,7 @@ $(function(){
         var currentPosition = this.currentPosition;
         this.el.object3D.updateMatrixWorld();
         currentPosition = this.el.object3D.quaternion;
-        
+
         if(self_connect != null){
           self_connect.send({
             "time": Date.now(),
