@@ -1,7 +1,5 @@
 $(function(){
   let localStream;
-  var connecting_flag = false;
-  var dataConnection; 
   var x,y,z = 0;
   let existingCall;
 
