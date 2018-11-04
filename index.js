@@ -33,7 +33,7 @@ $(function(){
 
   const audioSelect = $('#audioSource');
   const videoSelect = $('#videoSource');
-  const selectors = [audioSelect];
+  const selectors = [audioSelect,videoSelect];
 
   navigator.mediaDevices.enumerateDevices()
     .then(deviceInfos => {
@@ -78,7 +78,7 @@ $(function(){
     const audioSource = $('#audioSource').val();
     const videoSource = $('#videoSource').val();
     const constraints = {
-      audio: undefined,
+      audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
       video: undefined,
     }
 
