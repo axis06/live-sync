@@ -1,8 +1,6 @@
 $(function(){
   let localStream;
-  var connecting_flag = false;
-  var dataConnection; 
-  var x,y,z = 0;
+
   let existingCall;
   var self_connect
 
@@ -26,6 +24,7 @@ $(function(){
   });
 
   peer.on('connection', c => {
+    self_connect = c;
     c.on('open', () => 
     c.on('data', data => {console.log(data)})
     );
