@@ -11,5 +11,14 @@ node receiver.js
 ```
 
 ```
-http://localhost:3000/
+
+Oculus SmartPhone
+https://axis06.github.io/live-sync/
+
+
+
+Oculus SmartPhone
+http://localhost:3000/manager.html
+
+
 ```
