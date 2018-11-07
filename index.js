@@ -35,7 +35,7 @@ $(function(){
 
   const audioSelect = $('#audioSource');
   const videoSelect = $('#videoSource');
-  const selectors = [audioSelect,vid®eoSelect];
+  const selectors = [audioSelect,videoSelect];
 
   navigator.mediaDevices.enumerateDevices()
     .then(deviceInfos => {
@@ -78,17 +78,19 @@ $(function(){
   function source_select() {
     // Get audio/video stream
     const audioSource = $('#audioSource').val();
-    const videoSource = $('#videoSource').val();
     const constraints = {
       audio: true,
-      video: true,
+      video: false,
     }
 
-    console.log(audioSource);
 
     navigator.mediaDevices.getUserMedia(constraints).then(stream => {
-      $('#local').get(0).srcObject = stream;
-      localStream = stream;
+      var canvas = document.querySelector('canvas');
+      var cav_stream = canvas.captureStream(25);
+      localStream = cav_stream
+
+      const audioTrack = stream.getAudioTracks()[0];
+      localStream.addTrack(audioTrack);
 
       if (existingCall) {
         existingCall.replaceStream(stream);
