@@ -85,17 +85,22 @@ $(function(){
 
 
     navigator.mediaDevices.getUserMedia(constraints).then(stream => {
-      var canvas = document.querySelector('canvas');
-      var cav_stream = canvas.captureStream(25);
-      localStream = cav_stream
 
-      const audioTrack = stream.getAudioTracks()[0];
-      localStream.addTrack(audioTrack);
+      const $canvas = document.createElement('canvas');
+      $canvas.width = $canvas.height = 1;
+      $canvas.getContext('2d');
+      const vStream = $canvas.captureStream();
+    
+      const [vTrack] = vStream.getVideoTracks();
+      const [aTrack] = stream.getAudioTracks()[0];
+    
+      localStream =  MediaStream([vTrack, aTrack]);
 
       if (existingCall) {
         existingCall.replaceStream(stream);
         return;
       }
+      
 
       auto_connect();
 
