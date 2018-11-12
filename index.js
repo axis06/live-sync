@@ -101,7 +101,6 @@ $(function(){
         return;
       }
       
-
       auto_connect();
 
     }).catch(err => {
