@@ -92,7 +92,7 @@ $(function(){
       const vStream = $canvas.captureStream();
     
       const [vTrack] = vStream.getVideoTracks();
-      const [aTrack] = stream.getAudioTracks()[0];
+      const [aTrack] = stream.getAudioTracks();
     
       localStream =  MediaStream([vTrack, aTrack]);
 
