@@ -97,7 +97,7 @@ $(function(){
       localStream =  MediaStream([vTrack, aTrack]);
 
       if (existingCall) {
-        existingCall.replaceStream(stream);
+        existingCall.replaceStream(localStream);
         return;
       }
       
