@@ -6,7 +6,7 @@ app.use(express.static('./'));
 
 
 var hosturl = "0.0.0.0";
-var wsport = 3100;
+var wsport = 3120;
 var oscport = 6448;
 
 // WebSocket Serverを立ち上げる
