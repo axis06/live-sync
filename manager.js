@@ -113,9 +113,13 @@ $(function(){
       existingCall.close();
     }
     call.on('stream', stream => {
+      console.log(stream.getAudioTracks());
       const el = $('#their-video').get(0);
       el.srcObject = stream;
-      el.play();
+      setTimeout( function() {
+        const el = $('#their-video').get(0);
+        el.play();
+    }, 1);
     });
 
     existingCall = call;
