@@ -27,6 +27,8 @@ wss.on('connection', function (ws) {
 });
 
 
-app.listen(3000, ()=> {
-    console.log('Please Open http://localhost:3000/manager.html');
+app.listen(3500, ()=> {
+    console.log('Please Open http://localhost:3500/manager.html');
+    var childProc = require('child_process');
+    childProc.exec('open -a "Google Chrome" http://localhost:3500/manager.html', null);
 });

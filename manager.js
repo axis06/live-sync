@@ -10,7 +10,7 @@ $(function(){
   });
 
 
-  var sock = new WebSocket('ws://127.0.0.1:3100');
+  var sock = new WebSocket('ws://127.0.0.1:3120');
 
   sock.addEventListener('open',function(e){
       console.log('Socket Connecting');
