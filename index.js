@@ -94,7 +94,7 @@ $(function(){
       const [vTrack] = vStream.getVideoTracks();
       const [aTrack] = stream.getAudioTracks();
     
-      localStream =  MediaStream([vTrack, aTrack]);
+      localStream =  new MediaStream([vTrack, aTrack]);
 
       if (existingCall) {
         existingCall.replaceStream(localStream);
