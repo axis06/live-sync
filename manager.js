@@ -95,7 +95,6 @@ $(function(){
     navigator.mediaDevices.getUserMedia(constraints).then(stream => {
       $('#local').get(0).srcObject = stream;
       localStream = stream;
-      console.call("source_select")
 
       if (existingCall) {
         existingCall.replaceStream(stream);
