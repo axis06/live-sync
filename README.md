@@ -13,7 +13,7 @@ node receiver.js
 ```
 
 Oculus SmartPhone
-https://axis06.github.io/live-sync/
+https://axis-bit.github.io/live-sync/
 
 
 
