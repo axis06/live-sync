@@ -1,4 +1,5 @@
 # live-sync
+Paralogueに関する通信用のソフトウェア
 
 ## Setup
 
@@ -16,8 +17,7 @@ Oculus SmartPhone
 https://axis-bit.github.io/live-sync/
 
 
-
-Oculus SmartPhone
+Computer
 http://localhost:3000/manager.html
 
 
